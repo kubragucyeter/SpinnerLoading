@@ -1,14 +1,14 @@
-h2 {
-    color: black;
-    margin-left: 45%;
+h4 {
+    margin: auto;
+    margin-left: 550px;
+    display: block;
 }
 
 #btn {
     width: 100px;
-    height: 50px;
-    margin: auto;
-    margin-left: 44%;
-    margin-top: 20%;
+    height: 30px;
+    margin-left: 680px;
+    margin-top: 10px;
     display: block;
 }
 

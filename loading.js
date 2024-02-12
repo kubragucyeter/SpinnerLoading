@@ -1,52 +1,56 @@
-function displayFlag(flagImageUrl) {
-    document.querySelector('.loading').style.display = 'none';
-    document.querySelector('#flag').style.backgroundImage = `url(${flagImageUrl})`;
-
-}
-
-const btnElement = document.querySelector("#btn");
-
-if (btnElement) {
-    btnElement.addEventListener("click", () => {
-        document.querySelector('.loading').style.display = 'block';
-        document.querySelector('#btn').style.display = 'none';
 
 
-        setTimeout(() => {
-            fetch('https://mainfacts.com/media/images/coats_of_arms/tr.png', {
-                method: 'GET'
-            })
-                .then(response => {
-                    console.log("API response:", response);
 
-                    if (!response.ok) {
-                        console.error(`HTTP error! Hatası: ${response.status}`);
-                        return Promise.reject(`HTTP error! Hatası: ${response.status}`);
-                    }
+function deneme() {
 
-                    return response.blob();
-                })
-                .then(blob => {
-                    const imageUrl = URL.createObjectURL(blob);
-                    console.log("Blob data:", blob);
+    var sql = "SELECT * FROM DCAS.PPROTECCONT"
 
+    var sqlStr = { 'sql': '' + sql + '' };
+    var returnDeger;
 
-                    const imgElement = document.createElement('img');
-                    imgElement.src = imageUrl;
-                    document.body.appendChild(imgElement);
-
-
-                })
-                .catch(error => {
-                    console.error("API isteğinde bir hata oluştu:", error);
-                })
-                .finally(() => {
-                    document.querySelector('.loading').style.display = 'none';
-
-                });
-        }, 6000);
+    $.ajax({
+        type: "POST",
+        url: 'http://10.16.17.5:91/api/GetDataJSON3',
+        data: sqlStr,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        async: true,
+        headers: { "Authorization": "Bearer LHcR3acemZ7d_EDfN0UdiIpnZwyNtnhsHPSH3HuanjD_1gC30UtE2tR60EaLjny1FrCszKfau8VIEkI-rmgRXetuY-GU32G88QxVNGNVMG8hnTDdPKybrBI0fehZzhoKSRp05zLG3XIqTodwmlMezqiDZ3VY9Hsb0vglO0xw-sN7IqUZ5GZ2WqV-mQoR6uRXbr8Q9UsvjROXE0nz1Iw3hHggtmxhbFI_As6kE3iFaR5JVuy-CJwq7koi7QplGtDHaa2sGfkEpBNRvB-YI_slanHkA0vUbz8HxIL5gYpMIny1cpS9hz2JouACIqXVa8wHdi_uSig07eGFiZIfr68Scg" },
+        success: function (response) {
+            console.log(JSON.stringify(response))
+            returnDeger = JSON.stringify(response)
+        },
+        failure: function (failure) {
+            returnDeger = failure
+        },
+        error: function (error) {
+            returnDeger = error["statusText"]
+        },
 
     });
 
+
+
+    return returnDeger;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
