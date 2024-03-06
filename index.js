@@ -39,7 +39,7 @@ button.addEventListener("click", () => {
     const selectedColumnId = "column6";
     const columnElement = document.querySelector(`#${selectedColumnId}`);
 
-    // columnElement.innerHTML = "";
+    columnElement.innerHTML = "";
 
     // loadingApi(
     //     "SELECT * FROM DCAS.PPROTECCONT",
@@ -57,23 +57,25 @@ button.addEventListener("click", () => {
     //     selectedColumnId
     // );
 
-   
 
 
 
-// sendTextToApi
-const textToSend = "Bu bir örnek metindir.";
-sendTextToAPI(
-    textToSend,
-    function(response) {
-        console.log("Başarılı: ", response);
-    },
-    function() {
-        console.error("Yetki hatası: 401 (Unauthorized)");
-    },
-    function() {
-        console.error("Başarısız istek veya hata oluştu.");
-    }
-);
 
+    // sendTextToApi
+    
+    const textToSend = "Bu bir örnek metindir.";
+    sendTextToAPI(
+        textToSend,
+        function (response) {
+            columnElement.innerHTML = "Başarılı", textToSend;
+        },
+        function () {
+            columnElement.innerHTML = "Yetki hatası: 401 (Unauthorized)";
+        },
+        function () {
+            columnElement.innerHTML = "Başarısız istek veya hata oluştu.";
+        }
+    );
+    button,
+        selectedColumnId
 });
