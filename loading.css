@@ -1,41 +1,71 @@
-h4 {
-    margin: auto;
-    margin-left: 550px;
-    display: block;
-    margin: auto;
-    position: fixed;
+.column {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    height: 50px;
+    border: 1px solid gray;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid #ccc;
+    margin-top: 5px;
 }
 
 #btn {
     width: 100px;
-    height: 30px;
+    height: 50px;
     margin: auto;
     position: fixed;
-    top: 50%;
+    top: 70%;
     left: 50%;
     display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.spinner-border.spinner-border-sm {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 
+#overlay {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    cursor: pointer;
+}
 
 .loading {
-
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    position: fixed;
+    width: 50px;
+    height: 50px;
+    position: absolute;
     top: 50%;
     left: 50%;
-    border: 15px solid #EEEDEB;
+    margin-left: -25px;
+    /* Yatay merkezleme */
+    margin-top: -25px;
+    /* Dikey merkezleme */
+    border: 5px solid #EEEDEB;
     border-radius: 50%;
-    border-top: 15px solid #2D2727;
-
-    /*2 saniye de bir döndürüyor*/
+    border-top: 5px solid #2D2727;
     animation: spinner 2s linear infinite;
     display: none;
+    z-index: 3;
 }
 
-/* 0'dan 360'a döndürüyor */
 @keyframes spinner {
     0% {
         transform: rotate(0deg);

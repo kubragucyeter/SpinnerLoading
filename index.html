@@ -6,15 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="loading.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- yatayda scroolbarı' ı kaldırma -->
+    <style type="text/css">
+        body {
+            overflow-x: hidden;
+        }
+    </style>
     <title>Loading</title>
 </head>
 
 <body>
+    <div class="row">
+        <div id="column1" class="column"></div>
+        <div id="column2" class="column"></div>
+        <div id="column3" class="column"></div>
+        <div id="column4" class="column"></div>
+        <div id="column5" class="column"></div>
+        <div id="column6" class="column"></div>
+        <div id="column7" class="column"></div>
+        <div id="column8" class="column"></div>
+        <div id="column9" class="column"></div>
+        <div id="column10" class="column"></div>
+    </div>
 
-    <div class="loading"></div>
-
-
-    <div id="p"></div>
+    <div id="overlay" class="overlay"></div>
+    <div id="loading" class="loading"></div>
 
     <button class="btn btn-primary" id="btn">Tıklayınız</button>
 
