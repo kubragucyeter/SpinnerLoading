@@ -1,166 +1,134 @@
-//TODO: İçinde overlay olazn işlemler 
+function loadingButton(buttonId, columnId) {
 
-// function getColumnLoadingElement(columnId) {
-//     return document.querySelector(`#${columnId} .loading`);
-// }
+    const button = document.getElementById(buttonId);
+    const columnElement = document.getElementById(columnId);
 
-// function loadingApi(sql, callback, error, failure, columnId, isElementOverlay) {
-//     var sqlStr = { 'sql': '' + sql + '' };
-
-//     const columnLoading = getColumnLoadingElement(columnId);
-//     let overlay;
-
-//     // Element içinde overlay olacaksa ve sütun içinde loading elementi bulunamazsa
-//     // hata mesajı yazdır
-//     if (isElementOverlay === true && !columnLoading) {
-//         console.error(`Sütun ${columnId} için loading elementi bulunamadı.`);
-//         return;
-//     }
-
-//     // Element içinde overlay olacaksa ve loading elementi varsa
-//     // overlay oluştur ve ekrana yerleştir
-//     if (isElementOverlay === true && columnLoading) {
-//         overlay = document.createElement("div");
-//         overlay.id = "overlay";
-//         overlay.className = "overlay";
-//         const columnElement = document.querySelector(`#${columnId}`);
-//         columnElement.appendChild(overlay);
-
-//         overlay.style.display = "block";
-//     }
-
-//     // Full ekranda overlay olacaksa
-//     if (isElementOverlay === false && columnLoading) {
-//         overlay = document.createElement("div");
-//         overlay.id = "overlay";
-//         overlay.className = "overlay";
-//         document.body.appendChild(overlay);
-
-//         overlay.style.display = "block";
-//     }
-
-//     // Loading elementi varsa görünür yap
-//     if (columnLoading) {
-//         columnLoading.style.display = 'block';
-//     }
-
-//     $.ajax({
-//         type: "POST",
-//         url: 'http://10.16.17.5:91/api/GetDataJSON3',
-//         data: sqlStr,
-//         contentType: "application/x-www-form-urlencoded; charset=utf-8",
-//         dataType: "json",
-//         headers: { "Authorization": "Bearer gD5aFDdmItmovC6hxVFQ3JtKd-TzqHURjuWYGEEcTI-vmhgKKPMF8RsKlbyOzi38jNb4nxPqdcg46I9xIji5rZyXT4SynnuQHkXCz1etlRt8Kc9TMrD4fcm0PJI4DZV0yZCZnpK1QkDEbCR0Md78mF8YCY2fkiLeYORwT0BBOllykWKcp28ef4ADG4W_2YJsigOR8fa73hd5GFFghNBxwIjJi4qCpEJDFrvtW2SCLKRbu3rwEhGT6TyqYw7AkGoLYbkKwX7VOSBauTJ007pDfxYUHwUS3UgSwdzJ9fYqlxwd3GjgAhI6PinlZCLs8GcVHQUbZGTno8YIFJRurKP2DQ" },
-//         success: function (response) {
-//             callback(response);
-//             if (columnLoading) {
-//                 columnLoading.style.display = 'none';
-//             }
-//             if (isElementOverlay === true && overlay) {
-//                 overlay.style.display = "none";
-//             }
-//             if (isElementOverlay === false && overlay) {
-//                 overlay.style.display = "none";
-//             }
-//         },
-//         failure: function () {
-//             failure();
-//             if (columnLoading) {
-//                 columnLoading.style.display = 'none';
-//             }
-//             if (isElementOverlay === true && overlay) {
-//                 overlay.style.display = "none";
-//             }
-//             if (isElementOverlay === false && overlay) {
-//                 overlay.style.display = "none";
-//             }
-//         },
-//         error: function () {
-//             error();
-//             if (columnLoading) {
-//                 columnLoading.style.display = 'none';
-//             }
-//             if (isElementOverlay === true && overlay) {
-//                 overlay.style.display = "none";
-//             }
-//             if (isElementOverlay === false && overlay) {
-//                 overlay.style.display = "none";
-//             }
-//         },
-//     });
-
-
-
-// function loadingApi(sql, callback, error, failure, button, columnId) {
-//     var sqlStr = { 'sql': '' + sql + '' };
-
-//     const columnElement = document.querySelector(`#${columnId}`);
-
-//     // Buton içinde loading göstergesi oluştur
-//     const spinner = document.createElement("span");
-//     spinner.className = "spinner-border spinner-border-sm";
-//     spinner.setAttribute("role", "status");
-//     spinner.setAttribute("aria-hidden", "true");
-
-//     const loadingText = document.createElement("span");
-//     loadingText.className = "visually-hidden";
-//     loadingText.textContent = "Loading...";
-//     button.innerHTML = "";
-//     button.appendChild(spinner);
-//     button.appendChild(loadingText);
-
-//     // Loading göstergesinin boyutunu butona göre ayarla
-//     const buttonWidth = button.offsetWidth;
-//     const buttonHeight = button.offsetHeight;
-//     const loadingSize = Math.min(buttonWidth, buttonHeight) * 0.8; // 80% of the smaller dimension
-//     spinner.style.width = `${loadingSize}px`;
-//     spinner.style.height = `${loadingSize}px`;
-
-//     $.ajax({
-//         type: "POST",
-//         url: 'http://10.16.17.5:91/api/GetDataJSON3',
-//         data: sqlStr,
-//         contentType: "application/x-www-form-urlencoded; charset=utf-8",
-//         dataType: "json",
-//         headers: { "Authorization": "Bearer gD5aFDdmItmovC6hxVFQ3JtKd-TzqHURjuWYGEEcTI-vmhgKKPMF8RsKlbyOzi38jNb4nxPqdcg46I9xIji5rZyXT4SynnuQHkXCz1etlRt8Kc9TMrD4fcm0PJI4DZV0yZCZnpK1QkDEbCR0Md78mF8YCY2fkiLeYORwT0BBOllykWKcp28ef4ADG4W_2YJsigOR8fa73hd5GFFghNBxwIjJi4qCpEJDFrvtW2SCLKRbu3rwEhGT6TyqYw7AkGoLYbkKwX7VOSBauTJ007pDfxYUHwUS3UgSwdzJ9fYqlxwd3GjgAhI6PinlZCLs8GcVHQUbZGTno8YIFJRurKP2DQ" },
-//         success: function (response) {
-//             callback(response);
-//             button.innerHTML = "Tıklayınız";
-//         },
-//         failure: function () {
-//             failure();
-//             button.innerHTML = "Tıklayınız";
-//         },
-//         error: function () {
-//             error();
-//             button.innerHTML = "Tıklayınız";
-//         },
-//     });
-// }
-
-
-function sendTextToAPI(text, successCallback, failureCallback, errorCallback) {
-    var sqlStr = { 'sqlStr': sqlStr };
-
-    // Buton içinde loading göstergesi oluştur
     const spinner = document.createElement("span");
-    spinner.className = "spinner-border spinner-border-sm";
+    spinner.className = "spinner-border spinner-border-sm loading";
     spinner.setAttribute("role", "status");
     spinner.setAttribute("aria-hidden", "true");
 
     const loadingText = document.createElement("span");
     loadingText.className = "visually-hidden";
     loadingText.textContent = "Loading...";
-    button.innerHTML = "";
-    button.appendChild(spinner);
-    button.appendChild(loadingText);
 
-    // Loading göstergesinin boyutunu butona göre ayarla
     const buttonWidth = button.offsetWidth;
     const buttonHeight = button.offsetHeight;
-    const loadingSize = Math.min(buttonWidth, buttonHeight) * 0.8; // 80% of the smaller dimension
+    const loadingSize = Math.min(buttonWidth, buttonHeight) * 0.8;
     spinner.style.width = `${loadingSize}px`;
     spinner.style.height = `${loadingSize}px`;
+
+    const loadingWrapper = document.createElement("div");
+    loadingWrapper.appendChild(spinner);
+    loadingWrapper.appendChild(loadingText);
+    loadingWrapper.style.display = "none";
+
+    columnElement.appendChild(loadingWrapper);
+
+    const result = {
+        columnElement: columnElement,
+        loadingElement: loadingWrapper
+    };
+
+    return result;
+}
+function hideOverlay() {
+    loadingData.loadingElement.style.display = 'none';
+
+    if (isOverlayActive && overlay) {
+        overlay.style.display = "none";
+        overlay.remove();
+    }
+}
+
+function hideOverlay(loadingData, isOverlayActive, overlay) {
+    loadingData.loadingElement.style.display = 'none';
+
+    if (isOverlayActive === false) {
+        overlay.style.display = "none";
+        overlay.remove();
+    }
+}
+
+function loadingApiOverlay(sql, successCallback, failureCallback, columnId, isOverlayActive, buttonId) {
+    var sqlStr = { 'sql': sql };
+
+    const button = document.getElementById(buttonId);
+    const columnElement = document.getElementById(columnId);
+    const loadingData = loadingButton(buttonId, columnId);
+    let overlay;
+
+    if (isOverlayActive === true) {
+        overlay = document.createElement("div");
+        overlay.id = "overlay";
+        overlay.className = "overlay";
+        columnElement.appendChild(overlay);
+        overlay.style.display = "block";
+    } else if (isOverlayActive === false) {
+        overlay = document.createElement("div");
+        overlay.id = "overlay";
+        overlay.className = "overlay";
+        document.body.appendChild(overlay);
+        overlay.style.display = "block";
+    }
+
+    loadingData.loadingElement.style.display = 'block';
+
+    $.ajax({
+        type: "POST",
+        url: 'http://10.16.17.5:91/api/GetDataJSON3',
+        data: sqlStr,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        headers: { "Authorization": "Bearer 1885EnBQ9b5t0kyoJ-PoR7RJ9UdCZk9VP6V4aLzLC2kQskbIcl1jcxie3Tv4_r_cu7fzWcIUMxzz6pqGfARGSdbnOmdiHUi8z2LH1dYH-aR_c42ssL3dEmDpzq5qXfI3DoT4-OL0_mUTlX-t17UtWPZKTCNvAP-sHP8Zkgx4BAoKWu9zlqnTuu8ly3rHHOlcWPa-FvIt7aOtNPmyJgAyuuOtfyeYRQlRiJ9HaNBZd_sVWLRSi3QQfeRU1Zf2uY1iAnIGvYocbecPLAZebaHXzwOtVFL0lYAtlg5_ymLNr_TK6Mf6jAfGFTQI4Uw-QqUW6cP4OlQrlOHEjUkl0HGjqQ" },
+        success: function (response) {
+            successCallback(response, loadingData.columnElement);
+            button.innerHTML = "Tıklayınız";
+            hideOverlay(loadingData, isOverlayActive, overlay); // Overlay'i gizle
+        },
+        failure: function () {
+            failureCallback();
+            hideOverlay(loadingData, isOverlayActive, overlay); // Overlay'i gizle
+        },
+        error: function () {
+            failureCallback();
+            hideOverlay(loadingData, isOverlayActive, overlay); // Overlay'i gizle
+        }
+    });
+}
+
+
+
+function loadingApi(sql, callback, error, failure, button,) {
+    var sqlStr = { 'sql': sql };
+
+    $.ajax({
+        type: "POST",
+        url: 'http://10.16.17.5:91/api/GetDataJSOlN3',
+        data: sqlStr,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        headers: { "Authorization": "Bearer 1885EnBQ9b5t0kyoJ-PoR7RJ9UdCZk9VP6V4aLzLC2kQskbIcl1jcxie3Tv4_r_cu7fzWcIUMxzz6pqGfARGSdbnOmdiHUi8z2LH1dYH-aR_c42ssL3dEmDpzq5qXfI3DoT4-OL0_mUTlX-t17UtWPZKTCNvAP-sHP8Zkgx4BAoKWu9zlqnTuu8ly3rHHOlcWPa-FvIt7aOtNPmyJgAyuuOtfyeYRQlRiJ9HaNBZd_sVWLRSi3QQfeRU1Zf2uY1iAnIGvYocbecPLAZebaHXzwOtVFL0lYAtlg5_ymLNr_TK6Mf6jAfGFTQI4Uw-QqUW6cP4OlQrlOHEjUkl0HGjqQ" },
+        success: function (response) {
+            callback(response);
+            button.innerHTML = "Tıklayınız";
+        },
+        failure: function () {
+            failure();
+            button.innerHTML = "Tıklayınız";
+        },
+        error: function () {
+            error();
+            button.innerHTML = "Tıklayınız";
+        },
+    });
+}
+
+
+function sendTextToApi(sqlStr, successCallback, failureCallback, errorCallback, buttonId, columnId) {
+    var sqlStr = { 'sqlStr': sqlStr };
+
+    const loadingData = loadingButton(buttonId, columnId);
 
     $.ajax({
         type: "POST",
@@ -169,22 +137,19 @@ function sendTextToAPI(text, successCallback, failureCallback, errorCallback) {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         headers: {
-            "Authorization": "Bearer w1lCPp13VUvnjHdedphYW09gL-OBGe1a6hfbw_83Qc_77_WSFz-1LrBG5dZBDb4qPRhwapvejmMXEWkhT-3lq87n8cTFZTi-nbGIGn0PfnVvZwaVsdKVNsNZutumJxsTGAkV_Mzt3oxXOaUalTojQotAI2z1wnwpxOM1Lu1Y3jLRvdS-oHJL1Gabbv-N4_KTftBgFZW1rIqkaAmr7esG3YnViZ9T7rKEoAq70NgrU2BCZGflE4DpKGTvovbs4nwwSdRxclFoT_3wbwmz2NcQMjcJG4KL6bL9k0NSjIULtmH195k436twLvb--etIuAb6UPsRFMo6gG8iroV75rTPqg"
+            "Authorization": "Bearer 1885EnBQ9b5t0kyoJ-PoR7RJ9UdCZk9VP6V4aLzLC2kQskbIcl1jcxie3Tv4_r_cu7fzWcIUMxzz6pqGfARGSdbnOmdiHUi8z2LH1dYH-aR_c42ssL3dEmDpzq5qXfI3DoT4-OL0_mUTlX-t17UtWPZKTCNvAP-sHP8Zkgx4BAoKWu9zlqnTuu8ly3rHHOlcWPa-FvIt7aOtNPmyJgAyuuOtfyeYRQlRiJ9HaNBZd_sVWLRSi3QQfeRU1Zf2uY1iAnIGvYocbecPLAZebaHXzwOtVFL0lYAtlg5_ymLNr_TK6Mf6jAfGFTQI4Uw-QqUW6cP4OlQrlOHEjUkl0HGjqQ"
         },
         success: function (response) {
             successCallback(response);
-            button.innerHTML = "Tıklayınız";
+            loadingData.loadingElement.style.display = 'none';
         },
         error: function (xhr, status, error) {
-            if (xhr.status == 401) { // Unauthorized
+            if (xhr.status == 401) {
                 failureCallback();
-                button.innerHTML = "Tıklayınız";
             } else {
                 errorCallback();
-                button.innerHTML = "Tıklayınız";
             }
+            loadingData.loadingElement.style.display = 'none';
         }
     });
 }
-
-
